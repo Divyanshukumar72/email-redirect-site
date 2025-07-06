@@ -81,12 +81,12 @@
     let entries = JSON.parse(localStorage.getItem('entries')) || [];
     entryCount.textContent = `Total Entries: ${entries.length}`;
 
-    // Display previously visited links
+    // Function to show all visited entries
     function displayLinks() {
       linkList.innerHTML = '';
       entries.forEach(entry => {
         const li = document.createElement('li');
-        li.innerHTML = `<strong>${entry.email}</strong> → <a href="${entry.link}" target="_blank">${entry.link}</a>`;
+        li.innerHTML = `📧 <strong>${entry.email}</strong> visited 🔗 <a href="${entry.link}" target="_blank">${entry.link}</a>`;
         linkList.appendChild(li);
       });
     }
@@ -100,10 +100,12 @@
       const link = linkInput.value.trim();
 
       if (email && link) {
+        // Save email + link to localStorage
         entries.push({ email, link });
         localStorage.setItem('entries', JSON.stringify(entries));
         entryCount.textContent = `Total Entries: ${entries.length}`;
-        displayLinks();
+
+        displayLinks(); // update the list on screen
 
         setTimeout(() => {
           window.location.href = link;
